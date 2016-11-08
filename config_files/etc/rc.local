@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+
+# Generates the background picture with " .. waiting for network" message if the network isn't up
+
+set -e
+
+sleeptime=20
+
+source /opt/exam_scripts/exam_conf.sh
+source ${scripts_dir}/functions.sh
+
+check_network_txt=$(get_string 'check_network')
+sed -i "s/^Name=.*/Name=${check_network_txt}/" /home/ubuntu/Desktop/check_network.desktop
+
+if [ -e ${wallpaper}.orig ] ; then
+    log "Wallpaper was already generated. Exiting."
+else
+	log "Waiting ${sleeptime}s to see if the network comes up"
+	sleep ${sleeptime}
+	if [ -e ${wallpaper}.orig ] ; then
+        log "Wallpaper has already been generated while waiting. Exiting."
+    else
+		log "Generating alert wallpaper"
+		${scripts_dir}/update_desktop_wallpaper.sh
+	fi
+fi
+
+exit 0

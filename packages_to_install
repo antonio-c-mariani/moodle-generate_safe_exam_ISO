@@ -1,0 +1,23 @@
+# Language packs
+language-pack-pt
+language-pack-pt-base
+language-pack-gnome-pt
+language-pack-gnome-pt-base
+
+# Browsers
+firefox
+firefox-locale-pt
+flashplugin-installer
+# google-chrome-stable
+
+# LibreOffice suite
+libreoffice
+libreoffice-l10n-pt-br
+
+# Some additional packages
+gedit
+gnome-terminal
+evince
+
+# Asked by CCN
+gretl

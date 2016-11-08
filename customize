@@ -1,0 +1,156 @@
+#!/bin/bash
+
+###################################################################################
+# UCK - Ubuntu Customization Kit                                                  #
+# Copyright (C) 2006-2010 UCK Team                                                #
+#                                                                                 #
+# UCK is free software: you can redistribute it and/or modify                     #
+# it under the terms of the GNU General Public License as published by            #
+# the Free Software Foundation, either version 3 of the License, or               #
+# (at your option) any later version.                                             #
+#                                                                                 #
+# UCK is distributed in the hope that it will be useful,                          #
+# but WITHOUT ANY WARRANTY; without even the implied warranty of                  #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the                   #
+# GNU General Public License for more details.                                    #
+#                                                                                 #
+# You should have received a copy of the GNU General Public License               #
+# along with UCK.  If not, see <http://www.gnu.org/licenses/>.                    #
+###################################################################################
+
+function failure()
+{
+	echo "$@"
+	exit 1
+}
+
+function prepare_install()
+{
+	cp ${SCRIPT_DIR}/config_files/etc/apt/sources.list /etc/apt
+
+	#try 2 times to avoid slow proxies failures
+	apt-get update || failure "apt-get update failed, error=$?"
+
+	# upstart package is not installed in mini_remix iso so /sbin/initctl is removed by clean_rootfs_after_chroot function.
+	# Make sure /sbin/initctl will be correctly restored after install (see /usr/lib/uck/remaster-live-cd.sh).
+	apt-get install --assume-yes upstart
+	mv /sbin/initctl /sbin/initctl.uck_blocked
+	ln -s /bin/true /sbin/initctl
+}
+
+function finalize_install()
+{
+	apt-get clean
+	apt-get auto-clean
+
+    echo '' > /var/log/dpkg.log
+    echo '' > /var/log/apt/term.log
+
+    # Removing sudo access
+    rm -rf /etc/sudoers.d/
+    sed -i '/sudo/d' /etc/sudoers
+}
+
+function install_packages()
+{
+	apt-get install --assume-yes "$@" || failure "apt-get install $@ failed, error=$?"
+}
+
+function remove_packages()
+{
+	apt-get --purge remove --assume-yes "$@" || failure "apt-get remove $@ failed, error=$?"
+}
+
+SCRIPT_DIR=`dirname "$0"`
+
+# Print some information on the system being customized:
+rel="`lsb_release -is` `lsb_release -rs`"
+kernel=`ls /boot/config-* | sed 's/.*config-//'`
+arch=`if [ -d /lib64 ]; then echo x86_64; else echo i586; fi`
+echo ">> Customizing: $rel, $kernel $arch"
+
+prepare_install || failure "Preparing installation failed, error=$?"
+
+echo "------- Upgrading packages ---------"
+apt-get upgrade --assume-yes
+
+echo "------- Adding Ubuntu Desktop minimal packages and codecs---------"
+
+PACKAGES_TO_INSTALL="ubuntu-desktop unity-lens-applications unity-lens-files network-manager-gnome indicator-session"
+apt-get install --no-install-recommends --assume-yes $PACKAGES_TO_INSTALL || failure "Installing packs failed, error=$?"
+
+# Some packages necessary for video and sound
+echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true' | /usr/bin/debconf-set-selections
+echo 'ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula boolean true' | /usr/bin/debconf-set-selections
+install_packages ubuntu-restricted-extras || failure "Installing packs failed, error=$?"
+
+# Adding Xserver Xorg Video packages
+PACKAGES_TO_INSTALL=$(apt-cache search xserver-xorg-video | cut -d' ' -f1 | grep -E 'xenial$')
+install_packages xserver-xorg-video-all $PACKAGES_TO_INSTALL || failure "Installing packs failed, error=$?"
+
+echo 'iptables-persistent iptables-persistent/autosave_v6 boolean false' | /usr/bin/debconf-set-selections
+echo 'iptables-persistent iptables-persistent/autosave_v4 boolean false' | /usr/bin/debconf-set-selections
+PACKAGES_TO_INSTALL="vim curl cron jq iptables-persistent imagemagick"
+install_packages $PACKAGES_TO_INSTALL || failure "Installing packs failed, error=$?"
+
+echo "------- Installing additional packages ---------"
+
+source ${SCRIPT_DIR}/install_additional_packages.sh
+
+PACKAGES_TO_INSTALL=$(egrep -v -e '^#' ${SCRIPT_DIR}/packages_to_install)
+install_packages $PACKAGES_TO_INSTALL || failure "Installing packs failed, error=$?"
+
+echo "------- Customizing ISO ---------"
+
+cp -r ${SCRIPT_DIR}/config_files/* /
+
+source ${SCRIPT_DIR}/config.sh
+
+rm -f /etc/localtime
+echo $timezone > /etc/timezone
+dpkg-reconfigure -f noninteractive tzdata
+
+update-locale LANG="$lang" LANGUAGE="$language" LC_ALL="$lc_all"
+locale-gen "$lang"
+
+echo "NTP=${ntp_servers}" >> /etc/systemd/timesyncd.conf
+
+sed -i "s/XKBMODEL=.*$/XKBMODEL=\"$keyboard_model\"/g" /etc/default/keyboard
+sed -i "s/XKBLAYOUT=.*$/XKBLAYOUT=\"$keyboard_layout\"/g" /etc/default/keyboard
+sed -i "s/XKBVARIANT=.*$/XKBVARIANT=\"$keyboard_variant\"/g" /etc/default/keyboard
+
+# To allow --display option at zenity commands
+echo '/usr/bin/xhost +' >> /etc/skel/.profile
+
+# Changing icones for unity launcher and Desktop
+favorites=''
+sep=''
+for app in $favorites_launcher ; do
+	favorites="${favorites}${sep}'${app}.desktop'"
+	sep=', '
+done
+echo -e "[com.canonical.Unity.Launcher]\nfavorites=[${favorites}]" > /usr/share/glib-2.0/schemas/11_com.canonical.Unity.gschema.override
+
+# Removing unused background pictures
+rm -f /usr/share/backgrounds/*.jpg
+rm -f /usr/share/backgrounds/*.png
+
+# Congiguring unity
+sed -i '/picture-uri/ s|/usr/share/backgrounds/warty-final-ubuntu.png|/opt/exam_scripts/images/wallpaper.png|' /usr/share/glib-2.0/schemas/10_ubuntu-settings.gschema.override
+sed -i '/org.gnome.desktop.session/ aidle-delay=0' /usr/share/glib-2.0/schemas/10_ubuntu-settings.gschema.override
+sed -i '/picture-uri/ apicture-options="stretched"' /usr/share/glib-2.0/schemas/10_ubuntu-settings.gschema.override
+echo -e "[org.gnome.desktop.screensaver]\nlock-enabled=false" > /usr/share/glib-2.0/schemas/11_org.gnome.desktop.screensaver.override
+
+glib-compile-schemas /usr/share/glib-2.0/schemas/
+
+# Coping icones to Desktop
+for app in $favorites_desktop ; do
+        fapp="/usr/share/applications/${app}.desktop"
+        if [ -e "${fapp}" ] ; then
+                cp "${fapp}" /etc/skel/Desktop/
+        fi
+done
+
+finalize_install
+
+echo "Done"

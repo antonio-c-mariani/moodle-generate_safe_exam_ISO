@@ -1,0 +1,19 @@
+#! /bin/bash
+set -e
+
+source /opt/exam_scripts/exam_conf.sh
+source ${scripts_dir}/functions.sh
+
+log "Interface: $IFACE"
+
+# Don't try to configure exam when lo is configured.
+if [ "$IFACE" = lo ]; then
+	exit 0
+fi
+
+if [ "$IFACE" = '--all' ]; then
+	exit 0
+fi
+
+log "Configuring exam for interface: $IFACE"
+${scripts_dir}/configure_exam.sh

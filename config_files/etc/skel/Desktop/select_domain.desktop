@@ -1,0 +1,8 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Exec=/opt/exam_scripts/select_domain.sh
+Name=Select domain
+Icon=/opt/exam_scripts/images/system-restart.svg

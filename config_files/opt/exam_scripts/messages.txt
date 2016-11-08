@@ -1,0 +1,71 @@
+# ----------------------------------------------------------------------------------------------------
+
+en,version=Version:
+en,contact=Contact:
+en,waiting_network=... Waiting for network connection ...
+en,check_network=Check network
+en,click_check_network=Click on \'%arg1%\' to verify possible problems with network.
+en,network_diagnostics=Network connection Diagnostics
+
+en,router_ip_unreachable=The router IP \'%arg1%\' unreachable by ping command.\n\nContact the local area network administrator.
+
+en,if_not_configured=Network interface could not be correctly configured.\n\nContact the local area network administrator.
+
+en,ip_unreachable=IP \'%arg1%\' unreachable by ping command.\n\nContact the local area network administrator.
+
+en,dns_problem=It was not possible get IP for \'%arg1%\'. It seems there is some problem with names resolution.\n\nContact the local area network administrator.
+
+en,url_unreachable=It was not possible access address \'%arg1%\'. It may be unreachable or down.\n\nContact the people responsible for that service.
+
+en,network_ok=It was found no problems with network connection.
+
+en,unknown_domains=There is no domain in the TXT record 'examdomains' at domain \'%arg1%\'
+en,unknown_domain=Unknown domain \'%arg1%\' or without permission to take exams.
+en,domains=Domains
+en,select_domain=Select domain
+en,select_domain_title=Domain selection
+en,select_domain_msg=Select a domain for the taking exam
+en,no_selected_domain=No domain was selected
+en,domain_already_selected=The domain \'%arg1%\' is already configured
+en,no_domain_cfg=There is no configuration url at TXT register 'examcfg' of domain \'%arg1%\'
+en,domain_selected=The domain \'%arg1%\' was selected.\n\nActivation can take up to 1 minute.\nAfter this time the interface will be automatically restarted.
+en,no_ip_for=It was not possible get IP address for \'%arg1%\'.
+en,invalid_json=No valid configuration at \'%arg1%\'.
+en,invalid_domain=Unknown or unauthorized domain: \'%arg1%\'.
+en,domain_activated=The domain \'%arg1%\' was activated. \n\nClose and reopen the browser (Firefox or Google Chrome) to use the new data.
+
+# ----------------------------------------------------------------------------------------------------
+
+pt,version=Versão:
+pt,contact=Contato:
+pt,waiting_network=... Aguardando conexão de rede ...
+pt,check_network=Verificar rede
+pt,click_check_network=Clique em \'%arg1%\' para realizar diagnóstico da rede.
+pt,network_diagnostics=Diagnóstico de conexão de rede
+
+pt,if_not_configured=A interface de rede não não está corretamente configurada. Potenciais causas incluem:\n\t- falha no reconhecimento da placa de rede deste computador;\n\t- cabo de rede desconectado;\n\t- problemas com o servidor de DHCP da rede local;\n\t- necessidade de configuração manual para o caso de rede sem fio.\nEm qualquer dos casos é necessária a intervenção de um técnico de TI para sanar o problema.
+
+pt,router_ip_unreachable=A interface de rede parece estar corretamente configurada,\nmas o roteador da rede local (IP \'%arg1%\') está inalcançável via comando ping.\n\nContacte o administrador da rede local para ver o que possa estar ocorrendo.
+
+pt,ip_unreachable=A rede local parece estar corretamente configurada,\nmas mesmo assim o IP \'%arg1%\' está inalcançável via comando ping. Potenciais causas incluem:\n\t- Falha na comunicação com o provedor de acesso;\n\t- Falha em algum nó da Internet entre este computador e o servidor de endereço IP mencionado.\n\nContacte o administrador da rede local para ver o que possa estar ocorrendo.
+
+pt,dns_problem=A rede local parece estar corretamente configurada,\nmas mesmo assim não foi possível obter endereço IP de \'%arg1%\'.\nParece haver algum problema com a resolução de nomes (DNS) do provedor de acesso.\n\nContacte o administrador da rede local para ver o que possa estar ocorrendo.
+
+pt,url_unreachable=O computador e a rede local parecem estar corretamente configurados,\nmas mesmo assim não foi possível acessar o endereço \'%arg1%\'.\n\nContacte os responsáveis por esse serviço para verificar o que possa estar ocorrendo.
+
+pt,network_ok=Foram realizados diversos testes e não foram identificados problemas aparentes com\na conexão de rede e com o acesso ao endereço \'%arg1%\'.\n\nCaso persista algum problema de acesso, feche o navegador (Firefox ou Google Chrome)\ne reabra-o para ter certeza que as configurações atuais foram corretamente carregadas.
+
+pt,unknown_domains=Nao foram encontrados domínios associados ao registro TXT 'examdomains' do domínio \'%arg1%\'
+pt,unknown_domain=Domínio \'%arg1%\' desconhecido ou sem permissão para realizar provas.\n\nNenhuma alteração foi realizada.
+pt,domains=Domínios
+pt,select_domain=Selecionar domínio
+pt,select_domain_title=Seleção de domínio
+pt,select_domain_msg=Selecione o domínio para o qual será realizada a prova.
+pt,no_selected_domain=Não foi selecionado domínio.\n\nNenhuma alteração foi realizada.
+pt,domain_already_selected=O domínio \'%arg1%\' é o que esta atualmente configurado.\n\nNenhuma alteração foi realizada.
+pt,no_domain_cfg=Nao foi localizada url de configuração no registro TXT 'examcfg' do domínio \'%arg1%\'. \n\nNenhuma alteração foi realizada.
+pt,domain_selected=Foi selecionado o domínio \'%arg1%\'.\n\nA efetivação da seleçao pode demorar até 1 minuto.
+pt,no_ip_for=Não possível obter o número IP para \'%arg1%\'.\n\nNenhuma alteração foi realizada.
+pt,invalid_json=Não foi possível obter configuração válida em \'%arg1%\'.\n\nNenhuma alteração foi realizada.
+pt,invalid_domain=Domínio desconhecido ou não permitido: \'%arg1%\'.\n\nNenhuma alteração foi realizada.
+pt,domain_activated=O domínio \'%arg1%\' foi ativado. \n\nFeche e reabra o navegador (Firefox ou Google Chrome) para considerar os novos dados.
