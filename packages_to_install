@@ -8,16 +8,12 @@ language-pack-gnome-pt-base
 firefox
 firefox-locale-pt
 flashplugin-installer
-# google-chrome-stable
 
 # LibreOffice suite
-libreoffice
-libreoffice-l10n-pt-br
+# libreoffice
+# libreoffice-l10n-pt-br
 
 # Some additional packages
 gedit
 gnome-terminal
 evince
-
-# Asked by CCN
-gretl

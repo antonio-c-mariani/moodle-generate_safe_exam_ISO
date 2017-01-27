@@ -9,7 +9,7 @@ The ISO can be generated in any computer running Ubuntu 16.04 version. Steps to 
 
 2) Fix the /usr/lib/uck/remaster-live-cd.sh script
 	To correct this, "dpkg-query -p squashfs-tools" should be replaced with "dpkg -s squashfs-tools" as shown...
-	https://bugs.launchpad.net/uck/+bug/143501r
+	https://bugs.launchpad.net/bugs/1435019
 
 3) Download the ubuntu-mini-remix-16.04-amd64.iso (http://www.ubuntu-mini-remix.org)
 
@@ -22,7 +22,6 @@ The ISO can be generated in any computer running Ubuntu 16.04 version. Steps to 
     ./packages_to_install
 
     ./config_files/opt/exam_scripts/exam_conf.sh
-    ./config_files/opt/exam_scripts/exam_params.sh
     ./config_files/etc/apt/sources.list             # server near you
 
 6) Generate new ISO running:

@@ -16,12 +16,8 @@ lc_all='pt_BR.UTF-8'
 ntp_servers="pool.ntp.br"
 
 # Favorite items for desktop
-favorites_desktop="gnome-terminal
-	libreoffice-calc libreoffice-writer libreoffice-impress libreoffice-math
-	rstudio gretl"
+# favorites_desktop="gnome-terminal libreoffice-calc libreoffice-writer libreoffice-impress libreoffice-math"
+favorites_desktop="gnome-terminal"
 
 # Favorte items for launcher
-favorites_launcher="nautilus-home
-	firefox google-chrome
-	gedit
-	unity-control-center unity-network-panel"
+favorites_launcher="nautilus-home firefox gedit unity-control-center unity-network-panel"
