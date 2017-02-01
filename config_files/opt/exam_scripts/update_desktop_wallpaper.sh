@@ -2,11 +2,11 @@
 #set -x
 
 source ${BASH_SOURCE%/*}/exam_conf.sh
-source ${BASH_SOURCE%/*}/functions.sh
+source ${scripts_dir}/functions.sh
 
 if [ ! -e ${wallpaper}.orig ] ; then
-	log 'Copying original wallpaper'
-	cp ${wallpaper} ${wallpaper}.orig
+    log 'Copying original wallpaper'
+    cp ${wallpaper} ${wallpaper}.orig
 fi
 
 if network_isup; then

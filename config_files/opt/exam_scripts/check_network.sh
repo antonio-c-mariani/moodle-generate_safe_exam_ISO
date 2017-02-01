@@ -1,9 +1,8 @@
 #!/bin/bash
 #set -x
 
-local_dir="${BASH_SOURCE%/*}"
-source "${local_dir}/exam_conf.sh"
-source "${local_dir}/functions.sh"
+source ${BASH_SOURCE%/*}/exam_conf.sh
+source ${scripts_dir}/functions.sh
 
 if ! network_isup; then
     show_error_message 'network_diagnostics' 'if_not_configured'
@@ -36,7 +35,7 @@ if [ -z "${ip}" ]; then
     exit 1
 fi
 
-curl --insecure --silent --max-time 60 -o /dev/null "${exam_server_url}" > /dev/null
+curl --insecure --silent --max-time 15 -o /dev/null "${exam_server_url}" > /dev/null
 if [ "$?" != "0" ]; then
     show_error_message 'network_diagnostics' 'url_unreachable' "${exam_server_url}"
     exit 1

@@ -2,6 +2,7 @@
 #set -x
 
 source ${BASH_SOURCE%/*}/exam_conf.sh
+source ${scripts_dir}/functions.sh
 
 if [ -n "${server_ip}" ] && ping -w 2 -c1 "${server_ip}" > /dev/null 2>&1 ; then
     # Exam server is reachable
@@ -14,7 +15,7 @@ if [ -n "${server_ip}" ] && ping -w 2 -c1 "${server_ip}" > /dev/null 2>&1 ; then
     header3="EXAM-NETWORK:${local_network}"
 
     url="${exam_server_url}${send_data_path}"
-    /usr/bin/curl --silent --insecure --header "${header1}" --header "${header2}" --header "${header3}" "$url" > /dev/null 2>&1
+    /usr/bin/curl --silent --insecure --max-time 30 --header "${header1}" --header "${header2}" --header "${header3}" "$url" > /dev/null 2>&1
     exit $?
 fi
 

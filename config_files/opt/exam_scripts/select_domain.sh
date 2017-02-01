@@ -1,9 +1,8 @@
 #!/bin/bash
 #set -x
 
-local_dir="${BASH_SOURCE%/*}"
-source "${local_dir}/exam_conf.sh"
-source "${local_dir}/functions.sh"
+source ${BASH_SOURCE%/*}/exam_conf.sh
+source ${scripts_dir}/functions.sh
 
 domains=$(dig -t TXT +short "${exam_domain_cfg}" | grep examdomains | cut -d '"' -f2 | cut -d'=' -f2)
 if [ -z "$domains" ]; then

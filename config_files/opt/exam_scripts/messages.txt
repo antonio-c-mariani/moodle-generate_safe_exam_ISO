@@ -20,7 +20,7 @@ en,url_unreachable=It was not possible access address \'%arg1%\'. It may be unre
 en,network_ok=It was found no problems with network connection.
 
 en,unknown_domains=There is no domain in the TXT record 'examdomains' at domain \'%arg1%\'
-en,unknown_domain=Unknown domain \'%arg1%\' or without permission to take exams.
+en,unknown_domain=Unknown or unauthorized domain: \'%arg1%\'.
 en,domains=Domains
 en,select_domain=Select domain
 en,select_domain_title=Domain selection
@@ -31,8 +31,8 @@ en,no_domain_cfg=There is no configuration url at TXT register 'examcfg' of doma
 en,domain_selected=The domain \'%arg1%\' was selected.\n\nActivation can take up to 1 minute.\nAfter this time the interface will be automatically restarted.
 en,no_ip_for=It was not possible get IP address for \'%arg1%\'.
 en,invalid_json=No valid configuration at \'%arg1%\'.
-en,invalid_domain=Unknown or unauthorized domain: \'%arg1%\'.
-en,domain_activated=The domain \'%arg1%\' was activated. \n\nClose and reopen the browser (Firefox or Google Chrome) to use the new data.
+en,cfgurl_timeout=Failed getting configuration at \'%arg1%\' after waiting for \'%arg2%\' seconds.
+en,domain_activated=The domain \'%arg1%\' was activated. \n\nClose and reopen the Firefox browser Firefox to use the new data.
 
 # ----------------------------------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ pt,dns_problem=A rede local parece estar corretamente configurada,\nmas mesmo as
 
 pt,url_unreachable=O computador e a rede local parecem estar corretamente configurados,\nmas mesmo assim não foi possível acessar o endereço \'%arg1%\'.\n\nContacte os responsáveis por esse serviço para verificar o que possa estar ocorrendo.
 
-pt,network_ok=Foram realizados diversos testes e não foram identificados problemas aparentes com\na conexão de rede e com o acesso ao endereço \'%arg1%\'.\n\nCaso persista algum problema de acesso, feche o navegador (Firefox ou Google Chrome)\ne reabra-o para ter certeza que as configurações atuais foram corretamente carregadas.
+pt,network_ok=Foram realizados diversos testes e não foram identificados problemas aparentes com\na conexão de rede e com o acesso ao endereço \'%arg1%\'.\n\nCaso persista algum problema de acesso, feche o navegador Firefox\ne reabra-o para ter certeza que as configurações atuais foram corretamente carregadas.
 
 pt,unknown_domains=Nao foram encontrados domínios associados ao registro TXT 'examdomains' do domínio \'%arg1%\'
 pt,unknown_domain=Domínio \'%arg1%\' desconhecido ou sem permissão para realizar provas.\n\nNenhuma alteração foi realizada.
@@ -66,6 +66,6 @@ pt,domain_already_selected=O domínio \'%arg1%\' é o que esta atualmente config
 pt,no_domain_cfg=Nao foi localizada url de configuração no registro TXT 'examcfg' do domínio \'%arg1%\'. \n\nNenhuma alteração foi realizada.
 pt,domain_selected=Foi selecionado o domínio \'%arg1%\'.\n\nA efetivação da seleçao pode demorar até 1 minuto.
 pt,no_ip_for=Não possível obter o número IP para \'%arg1%\'.\n\nNenhuma alteração foi realizada.
+pt,cfgurl_timeout=Houve falha na obtenção de configuração em \'%arg1%\' com \'%arg2%\' segundos de espera.
 pt,invalid_json=Não foi possível obter configuração válida em \'%arg1%\'.\n\nNenhuma alteração foi realizada.
-pt,invalid_domain=Domínio desconhecido ou não permitido: \'%arg1%\'.\n\nNenhuma alteração foi realizada.
-pt,domain_activated=O domínio \'%arg1%\' foi ativado. \n\nFeche e reabra o navegador (Firefox ou Google Chrome) para considerar os novos dados.
+pt,domain_activated=O domínio \'%arg1%\' foi ativado. \n\nFeche e reabra o navegador Firefox para considerar os novos dados.

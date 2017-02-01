@@ -17,7 +17,7 @@ ntp_servers="pool.ntp.br"
 
 # Favorite items for desktop
 # favorites_desktop="gnome-terminal libreoffice-calc libreoffice-writer libreoffice-impress libreoffice-math"
-favorites_desktop="gnome-terminal"
+favorites_desktop=""
 
 # Favorte items for launcher
 favorites_launcher="nautilus-home firefox gedit unity-control-center unity-network-panel"
