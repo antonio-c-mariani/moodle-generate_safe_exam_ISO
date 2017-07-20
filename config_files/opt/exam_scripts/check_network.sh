@@ -28,6 +28,11 @@ if [ -z "$ip" ]; then
     exit 1
 fi
 
+if [[ ! "${exam_server_url}" =~ ^http(s)?:// ]] ; then
+    show_error_message 'network_diagnostics' 'bad_url' "${server_hostname}"
+    exit 1
+fi
+
 server_hostname=$(echo "${exam_server_url}" | cut -d'/' -f3)
 ip=$(dig -t A +short "${server_hostname}" |grep -E '^[0-9].*[0-9]$' | tail -n1)
 if [ -z "${ip}" ]; then
@@ -35,9 +40,12 @@ if [ -z "${ip}" ]; then
     exit 1
 fi
 
-curl --insecure --silent --max-time 15 -o /dev/null "${exam_server_url}" > /dev/null
-if [ "$?" != "0" ]; then
+cres=$(curl --insecure --silent --max-time 15 -o /dev/null -L -w "%{http_code}" "${exam_server_url}")
+if [ "$cres" == "000" ]; then
     show_error_message 'network_diagnostics' 'url_unreachable' "${exam_server_url}"
+    exit 1
+elif [ "$cres" != "200" ]; then
+    show_error_message 'network_diagnostics' 'url_misconfigured' "${exam_server_url}" "${cres}"
     exit 1
 fi
 
